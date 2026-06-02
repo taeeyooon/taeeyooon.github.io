@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>태윤책방 - 독서 메이트</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: "맑은 고딕", "Malgun Gothic", "Gungsuh", serif;
+            background-color: #F9F8F6; 
+            color: #333333;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* 헤더 영역 */
+        header {
+            background-color: #2F4F46; 
+            color: #EFE9DC;
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 {
+            margin-bottom: 15px;
+            font-size: 2em;
+        }
+        
+        /* 상단 네비게이션 메인 메뉴 */
+        nav {
+            background-color: #3D665B;
+            text-align: center;
+        }
+        nav a {
+            display: inline-block;
+            padding: 12px 20px;
+            color: #EFE9DC;
+            font-weight: bold;
+            font-size: 0.95em;
+        }
+        nav a:hover {
+            background-color: #2F4F46;
+        }
+        
+        /* 현재 머물고 있는 메뉴 활성화 스타일 (독서 메이트) */
+        .now {
+            background-color: #2F4F46;
+        }
+
+        /* 본문 레이아웃 틀 */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .category-title {
+            font-size: 1.6em;
+            font-weight: bold;
+            color: #2F4F46;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #2F4F46;
+        }
+
+        /* float 해제 */
+        .container::after, footer::after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+
+        /* [좌측] 메인 구역 (75%) */
+        main {
+            float: left;
+            width: 75%;
+            padding-right: 20px;
+        }
+
+        /* [우측] 책방 소식 사이드바 구역 (25%) */
+        .notice-section {
+            float: left;
+            width: 25%;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #E5E2DC;
+        }
+        .notice-section h2 {
+            color: #2F4F46;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        .notice-block {
+            background-color: #F9F8F6;
+            padding: 12px;
+            margin-bottom: 12px;
+            border-radius: 4px;
+            border-left: 3px solid #3D665B;
+        }
+        .notice-title {
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .notice-date {
+            font-size: 0.75em;
+            color: #888;
+        }
+
+        /* 푸터 영역 */
+        footer {
+            background-color: #2F4F46;
+            color: #EFE9DC;
+            padding: 20px;
+            margin-top: 40px;
+            font-size: 0.85em;
+        }
+        .footer-left {
+            float: left;
+            width: 70%;
+            line-height: 1.8;
+        }
+        .footer-left a {
+            color: #EFE9DC;
+            text-decoration: underline;
+        }
+        .footer-right {
+            float: right;
+            width: 30%;
+            text-align: right;
+            line-height: 1.8;
+        }
+        .sns-logos {
+            margin-top: 5px;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        .sns-logos span {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            background-color: #EFE9DC;
+            color: #2F4F46;
+            text-align: center;
+            line-height: 25px;
+            border-radius: 4px;
+            margin-left: 5px;
+            font-size: 0.8em;
+        }
+
+        /* ===================================================
+           ✨ 주신 코드에서 이식한 독서 메이트(mate) 레이아웃 스타일
+           =================================================== */
+        .mate-section {
+            margin-bottom: 35px;
+        }
+        .mate-subtitle {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2c2c2c;
+            margin-bottom: 15px;
+        }
+        .mate-grid {
+            display: flex;
+            gap: 20px;
+        }
+        .book-cover {
+            width: 22%; 
+            height: auto;
+            flex-shrink: 0;
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.95em;
+            border: 1px solid #E5E2DC; /* 표지 경계선을 깔끔하게 다듬음 */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .book-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 모바일 반응형 미디어 쿼리 */
+        @media only screen and (max-width: 768px) {
+            main {
+                width: 100%;
+                padding-right: 0;
+            }
+            .notice-section {
+                width: 100%;
+                margin-top: 20px;
+            }
+            .footer-left, .footer-right {
+                width: 100%;
+                float: none;
+                text-align: center;
+                margin-bottom: 15px;
+            }
+            .footer-right {
+                margin-bottom: 0;
+            }
+            /* 모바일에서 4열 책장 레이아웃 흐트러짐 방지 (2열씩 배치) */
+            .mate-grid {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+            .book-cover {
+                width: 47%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1><a href="index.html">태윤책방</a></h1>
+        <nav>
+            <a href="page1.html">나의 서가</a>
+            <a href="page2.html">밑줄 긋기</a>
+            <a href="page3.html">장바구니</a>
+            <a href="page4.html" class="now">독서 메이트</a>
+            <a href="page5.html">방명록</a>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <main>
+            <h2 class="category-title">독서 메이트</h2>
+
+            <div class="mate-section">
+                <h3 class="mate-subtitle">[울적할 때]</h3>
+                <div class="mate-grid">
+                    <div class="book-cover"><img src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788965966814.jpg" alt="도서 이미지"></div>
+                    <div class="book-cover"><img src="https://image.aladin.co.kr/product/33010/77/cover500/e552532011_1.jpg" alt="도서 이미지"></div>
+                    <div class="book-cover"><img src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791172133061.jpg" alt="도서 이미지"></div>
+                    <div class="book-cover"><img src="https://contents.kyobobook.co.kr/sih/fit-in/400x0/pdt/9791193235485.jpg" alt="도서 이미지"></div>
+                </div>
+            </div>
+
+            <div class="mate-section">
+                <h3 class="mate-subtitle">[가볍게 읽고 싶을 때]</h3>
+                <div class="mate-grid">
+                    <div class="book-cover"><img src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791171714384.jpg" alt="도서 이미지"></div>
+                    <div class="book-cover"><img src="https://image.yes24.com/goods/117716170/XL" alt="도서 이미지"></div>
+                    <div class="book-cover"><img src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791161571331.jpg" alt="도서 이미지"></div>
+                    <div class="book-cover"><img src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791171714902.jpg" alt="도서 이미지"></div>
+                </div>
+            </div>
+
+            <div class="mate-section">
+                <h3 class="mate-subtitle">[밤에 읽을 때]</h3>
+                <div class="mate-grid">
+                    <div class="book-cover"><img src="https://i.namu.wiki/i/x8oJEuJVLBHIT-L3fQWzz93vjYAGgaPub-bQMJng4ANGsU92ypvZqEaxdS9wrcM5dcM9J07tOJWKQ4yVXlA0Bg.webp" alt="도서 이미지"></div>
+                    <div class="book-cover"><img src="https://kr.object.ncloudstorage.com/changbi/old/uploads/2022/03/20220321_015534.jpg" alt="도서 이미지"></div>
+                    <div class="book-cover"><img src="https://contents.kyobobook.co.kr/sih/fit-in/400x0/pdt/9788932475233.jpg" alt="도서 이미지"></div>
+                    <div class="book-cover"><img src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788937461798.jpg" alt="도서 이미지"></div>
+                </div>
+            </div>
+        </main>
+
+        <section class="notice-section">
+            <h2>책방 소식</h2>
+            
+            <div class="notice-block">
+                <p class="notice-title">6월 정기 휴무 안내</p>
+                <p class="notice-date">2026.05.29</p>
+            </div>
+
+            <div class="notice-block">
+                <p class="notice-title">[모집] 금요 심야 독서회</p>
+                <p class="notice-date">2026.05.05</p>
+            </div>
+
+            <div class="notice-block">
+                <p class="notice-title">이달의 독립출판물 입고</p>
+                <p class="notice-date">2026.05.01</p>
+            </div>
+        </section>
+
+    </div> 
+
+    <footer>
+        <div class="footer-left">
+            <p>인스타그램: <a href="#">@taeyoon_bookshop</a> | 이메일: contact@taeyoon.com</p>
+            <p>전화번호: 02-1234-5678</p>
+            <p style="margin-top: 10px; color: #A3B8B0;">&copy; 2026 태윤책방. All rights reserved.</p>
+        </div>
+        
+        <div class="footer-right">
+            <p><a href="#">QnA 게시판 바로가기</a></p>
+            <div class="sns-logos">
+                <span>f</span>
+                <span>b</span>
+                <span>t</span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

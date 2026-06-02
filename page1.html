@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: "맑은 고딕", "Malgun Gothic", "Gungsuh", serif;
+            background-color: #F9F8F6; 
+            color: #333333;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        header {
+            background-color: #2F4F46; 
+            color: #EFE9DC;
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 {
+            margin-bottom: 15px;
+            font-size: 2em;
+        }
+        
+        nav {
+            background-color: #3D665B;
+            text-align: center;
+        }
+        nav a {
+            display: inline-block;
+            padding: 12px 20px;
+            color: #EFE9DC;
+            font-weight: bold;
+            font-size: 0.95em;
+        }
+        nav a:hover {
+            background-color: #2F4F46;
+        }
+        
+        .now {
+            background-color: #2F4F46;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .container::after, .book-grid::after, footer::after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+
+        main {
+            float: left;
+            width: 75%;
+            padding-right: 20px;
+        }
+
+        .category-title {
+            font-size: 1.6em;
+            font-weight: bold;
+            color: #2F4F46; /* 딥그린 */
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #2F4F46;
+        }
+
+        .book-grid {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        /* 각 책 카드: 한 줄에 3개씩 배치 */
+        .book-card {
+            float: left;
+            width: 31%;
+            height: 450px;
+            margin-right: 3.5%;
+            margin-bottom: 25px;
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #E5E2DC;
+            text-align: center;
+        }
+
+        .book-card:nth-child(3n) {
+            margin-right: 0;
+        }
+
+        .book-card:nth-child(3n+1) {
+            clear: left;
+        }
+
+        /* 카드 내부 요소들 */
+        .book-card img {
+            width: 97%;      
+            height: 270px;    
+            border: 1px solid #ddd;
+            margin-bottom: 12px;
+        }
+        .card-title {
+            font-size: 1.05em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 4px;
+        }
+        .card-author {
+            font-size: 0.85em;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        .card-rating {
+            font-size: 0.95em;
+            color: #FFB300;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        .card-review {
+            font-size: 0.8em;
+            color: #444;
+            background-color: #F9F8F6;
+            padding: 8px;
+            border-radius: 4px;
+            line-height: 1.4;
+        }
+
+        .notice-section {
+            float: left;
+            width: 25%;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #E5E2DC;
+        }
+        .notice-section h2 {
+            color: #2F4F46;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        .notice-block {
+            background-color: #F9F8F6;
+            padding: 12px;
+            margin-bottom: 12px;
+            border-radius: 4px;
+            border-left: 3px solid #3D665B;
+        }
+        .notice-title {
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .notice-date {
+            font-size: 0.75em;
+            color: #888;
+        }
+
+        footer {
+            background-color: #2F4F46;
+            color: #EFE9DC;
+            padding: 20px;
+            margin-top: 40px;
+            font-size: 0.85em;
+        }
+        .footer-left {
+            float: left;
+            width: 70%;
+            line-height: 1.8;
+        }
+        .footer-left a {
+            color: #EFE9DC;
+            text-decoration: underline;
+        }
+        .footer-right {
+            float: right;
+            width: 30%;
+            text-align: right;
+            line-height: 1.8;
+        }
+        .sns-logos {
+            margin-top: 5px;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        .sns-logos span {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            background-color: #EFE9DC;
+            color: #2F4F46;
+            text-align: center;
+            line-height: 25px;
+            border-radius: 4px;
+            margin-left: 5px;
+            font-size: 0.8em;
+        }
+
+        @media only screen and (max-width: 768px) {
+            main {
+                width: 100%;
+                padding-right: 0;
+            }
+            .notice-section {
+                width: 100%;
+                margin-top: 20px;
+            }
+            .footer-left, .footer-right {
+                width: 100%;
+                float: none;
+                text-align: center;
+                margin-bottom: 15px;
+            }
+            .footer-right {
+                margin-bottom: 0;
+            }
+            .book-card {
+                width: 100%;
+                margin-right: 0 !important;
+                height: auto; 
+            }   
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1><a href="index.html">태윤책방</a></h1>
+        <nav>
+            <a href="page1.html" class="now">나의 서가</a>
+            <a href="page2.html">밑줄 긋기</a>
+            <a href="page3.html">장바구니</a>
+            <a href="page4.html">독서 메이트</a>
+            <a href="page5.html">방명록</a>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <main>
+            <h2 class="category-title">나의 서가</h2>
+
+            <ul class="book-grid">
+                <li class="book-card">
+                    <img src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788965966814.jpg" alt="책 표지">
+                    <p class="card-title">악마와 함께 춤을</p>
+                    <p class="card-author">크리스타 K. 토마슨</p>
+                    <p class="card-rating">★★★★☆ 4.0</p>
+                    <p class="card-review">"상처받은 마음에 따뜻한 위로와 용기를 건네주는 책이었습니다."</p>
+                </li>
+
+                <li class="book-card">
+                    <img src="https://image.aladin.co.kr/product/33010/77/cover500/e552532011_1.jpg" alt="책 표지">
+                    <p class="card-title">미드나잇 스완</p>
+                    <p class="card-author">우치다 에이지</p>
+                    <p class="card-rating">★★★☆☆ 3.0</p>
+                    <p class="card-review">"선택하지 않은 삶에 미련을 두기보다 현재를 살아가게 만드네요."</p>
+                </li>
+
+                <li class="book-card">
+                    <img src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791172133061.jpg" alt="책 표지">
+                    <p class="card-title">말뚝들</p>
+                    <p class="card-author">김홍</p>
+                    <p class="card-rating">★★★★★ 5.0</p>
+                    <p class="card-review">"잔잔한 새벽 감성으로 읽기 아주 좋았던 소설입니다."</p>
+                </li>
+
+                <li class="book-card">
+                    <img src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788937461798.jpg" alt="책 표지">
+                    <p class="card-title">브람스를 좋아하세요...</p>
+                    <p class="card-author">프랑수아즈 사강</p>
+                    <p class="card-rating">★★★★☆ 4.0</p>
+                    <p class="card-review">"익숙함의 절망적인 사랑이야기."</p>
+                </li> 
+
+                <li class="book-card">
+                    <img src="https://image.yes24.com/goods/67441948/XL" alt="책 표지">
+                    <p class="card-title">용은 잠들다</p>
+                    <p class="card-author">미야베 미유키</p>
+                    <p class="card-rating">★★★★★ 5.0</p>
+                    <p class="card-review">"초능력 소년과 잡지 기자의 추리소설"</p>
+                </li> 
+
+                <li class="book-card">
+                    <img src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788954681155.jpg" alt="책 표지">
+                    <p class="card-title">홍학의 자리</p>
+                    <p class="card-author">정해연</p>
+                    <p class="card-rating">★★☆☆☆ 2.0</p>
+                    <p class="card-review">"반전과 소름돋움의 연속"</p>
+                </li> 
+
+                <li class="book-card">
+                    <img src="https://contents.kyobobook.co.kr/sih/fit-in/400x0/pdt/9791193235485.jpg" alt="책 표지">
+                    <p class="card-title">까멜리아 싸롱</p>
+                    <p class="card-author">고수리</p>
+                    <p class="card-rating">★★★★★ 5.0</p>
+                    <p class="card-review">"이웃들의 평범한 이야기가 주는 감동이 정말 깊습니다."</p>
+                </li> 
+
+                <li class="book-card">
+                    <img src="https://contents.kyobobook.co.kr/sih/fit-in/280x0/pdt/9788998441012.jpg" alt="책 표지">
+                    <p class="card-title">모순</p>
+                    <p class="card-author">양귀자</p>
+                    <p class="card-rating">★★★★☆ 4.0</p>
+                    <p class="card-review">"안진진의 삶의 선택은?"</p>
+                </li> 
+            </ul>
+        </main>
+
+        <section class="notice-section">
+            <h2>책방 소식</h2>
+            
+            <div class="notice-block">
+                <p class="notice-title">6월 정기 휴무 안내</p>
+                <p class="notice-date">2026.05.29</p>
+            </div>
+
+            <div class="notice-block">
+                <p class="notice-title">[모집] 금요 심야 독서회</p>
+                <p class="notice-date">2026.05.05</p>
+            </div>
+
+            <div class="notice-block">
+                <p class="notice-title">이달의 독립출판물 입고</p>
+                <p class="notice-date">2026.05.01</p>
+            </div>
+        </section>
+
+    </div> <footer>
+        <div class="footer-left">
+            <p>인스타그램: <a href="#">@taeyoon_bookshop</a> | 이메일: contact@taeyoon.com</p>
+            <p>전화번호: 02-1234-5678</p>
+            <p style="margin-top: 10px; color: #A3B8B0;">&copy; 2026 태윤책방. All rights reserved.</p>
+        </div>
+        
+        <div class="footer-right">
+            <p><a href="#">QnA 게시판 바로가기</a></p>
+            <div class="sns-logos">
+                <span>f</span>
+                <span>b</span>
+                <span>t</span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
